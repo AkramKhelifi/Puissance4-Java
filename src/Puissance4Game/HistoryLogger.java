@@ -1,4 +1,4 @@
-package puissance4game;
+package Puissance4Game;
 
 import java.io.FileWriter;
 import java.io.IOException;

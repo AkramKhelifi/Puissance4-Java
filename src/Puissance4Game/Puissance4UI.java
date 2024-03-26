@@ -56,8 +56,35 @@ public class Puissance4UI extends JFrame {
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (isPlayer1NameValid()) {
+                    String player1Name = player1NameField.getText();
+                    String player2Name = player2NameField.getText();
+
+                    Player player1 = new Player(player1Name, 'X');
+                    Player player2;
+                    if (aiPlayerButton.isEnabled()) {
+                        player2 = new Player(player2Name, 'O');
+                    } else {
+                        player2 = new AIPlayer(player2Name, 'O');
+                    }
+
+                    launchGameUI(player1, player2);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer le nom du Joueur 1.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    startButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            if (isPlayer1NameValid()) {
                 String player1Name = player1NameField.getText();
-                String player2Name = player2NameField.getText();
+
+                if (!aiPlayerButton.isEnabled() && isPlayer2NameValid() == false) {
+                    JOptionPane.showMessageDialog(null, "Veuillez entrer le nom du Joueur 2.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 Player player1 = new Player(player1Name, 'X');
                 Player player2;
@@ -68,15 +95,26 @@ public class Puissance4UI extends JFrame {
                 }
 
                 launchGameUI(player1, player2);
+            } else {
+                JOptionPane.showMessageDialog(null, "Veuillez entrer le nom du Joueur 1.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-        });
-    }
+        }
+    });
+
 
     private void launchGameUI(Player player1, Player player2) {
         Game game = new Game(player1, player2);
         GameUI gameUI = new GameUI(game);
         gameUI.setVisible(true);
         setVisible(false);
+    }
+
+    private boolean isPlayer1NameValid() {
+        return !player1NameField.getText().trim().isEmpty();
+    }
+
+    private boolean isPlayer2NameValid() {
+        return !player2NameField.getText().trim().isEmpty();
     }
 
     public static void main(String[] args) {

@@ -7,13 +7,15 @@ public class Game {
     private Player player1;
     private Player player2;
     private char[][] grid;
-    private char currentPlayer;
+    private char currentPlayerSymbol;
+    private String currentPlayerName;
     private boolean gameOver;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        this.currentPlayer = player1.getSymbol();
+        this.currentPlayerName = player1.getName();
+        this.currentPlayerSymbol = player1.getSymbol();
         this.grid = new char[6][7];
         this.gameOver = false;
         initializeGrid();
@@ -26,20 +28,27 @@ public class Game {
     }
 
     protected void switchPlayer() {
-        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        if (currentPlayerSymbol == player1.getSymbol()) {
+            currentPlayerSymbol = player2.getSymbol();
+            currentPlayerName = player2.getName();
+        } else {
+            currentPlayerSymbol = player1.getSymbol();
+            currentPlayerName = player1.getName();
+        }
     }
 
     protected boolean checkForWin(int row, int col) {
-        int count = 1;
+        char currentPlayerSymbol = grid[row][col];
 
-        // Horizontal check
+        // Vérification horizontale
+        int count = 1;
         int j = col - 1;
-        while (j >= 0 && grid[row][j] == currentPlayer) {
+        while (j >= 0 && grid[row][j] == currentPlayerSymbol) {
             count++;
             j--;
         }
         j = col + 1;
-        while (j < 7 && grid[row][j] == currentPlayer) {
+        while (j < 7 && grid[row][j] == currentPlayerSymbol) {
             count++;
             j++;
         }
@@ -47,15 +56,15 @@ public class Game {
             return true;
         }
 
-        // Vertical check
+        // Vérification verticale
         count = 1;
         int i = row - 1;
-        while (i >= 0 && grid[i][col] == currentPlayer) {
+        while (i >= 0 && grid[i][col] == currentPlayerSymbol) {
             count++;
             i--;
         }
         i = row + 1;
-        while (i < 6 && grid[i][col] == currentPlayer) {
+        while (i < 6 && grid[i][col] == currentPlayerSymbol) {
             count++;
             i++;
         }
@@ -63,18 +72,18 @@ public class Game {
             return true;
         }
 
-        // Diagonal check 1
+        // Vérification diagonale 1 (bas-gauche à haut-droite)
         count = 1;
         i = row - 1;
         j = col - 1;
-        while (i >= 0 && j >= 0 && grid[i][j] == currentPlayer) {
+        while (i >= 0 && j >= 0 && grid[i][j] == currentPlayerSymbol) {
             count++;
             i--;
             j--;
         }
         i = row + 1;
         j = col + 1;
-        while (i < 6 && j < 7 && grid[i][j] == currentPlayer) {
+        while (i < 6 && j < 7 && grid[i][j] == currentPlayerSymbol) {
             count++;
             i++;
             j++;
@@ -83,18 +92,18 @@ public class Game {
             return true;
         }
 
-        // Diagonal check 2
+        // Vérification diagonale 2 (bas-droite à haut-gauche)
         count = 1;
         i = row - 1;
         j = col + 1;
-        while (i >= 0 && j < 7 && grid[i][j] == currentPlayer) {
+        while (i >= 0 && j < 7 && grid[i][j] == currentPlayerSymbol) {
             count++;
             i--;
             j++;
         }
         i = row + 1;
         j = col - 1;
-        while (i < 6 && j >= 0 && grid[i][j] == currentPlayer) {
+        while (i < 6 && j >= 0 && grid[i][j] == currentPlayerSymbol) {
             count++;
             i++;
             j--;
@@ -109,7 +118,7 @@ public class Game {
     public boolean dropToken(int col) {
         for (int i = 5; i >= 0; i--) {
             if (grid[i][col] == ' ') {
-                grid[i][col] = currentPlayer;
+                grid[i][col] = currentPlayerSymbol;
                 return true;
             }
         }
@@ -142,18 +151,25 @@ public class Game {
         return true;
     }
 
-    private void endGame() {
-        JOptionPane.showMessageDialog(null, "Le joueur " + currentPlayer + " a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+    protected void endGame() {
+        JOptionPane.showMessageDialog(null, "Le joueur " + getCurrentPlayerName() + " (" + getCurrentPlayerSymbol() + ") a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+        HistoryLogger.logGameResult(getCurrentPlayerName(), getCurrentPlayerName().equals(player1.getName()) ? player2.getName() : player1.getName());
         gameOver = true;
     }
 
-    private void endGameWithDraw() {
+    protected void endGameWithDraw() {
         JOptionPane.showMessageDialog(null, "Match nul!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
         gameOver = true;
     }
 
+
+
+    public String getCurrentPlayerName() {
+        return currentPlayerName;
+    }
+
     public char getCurrentPlayerSymbol() {
-        return currentPlayer;
+        return currentPlayerSymbol;
     }
 
     public boolean isGameOver() {
@@ -174,7 +190,9 @@ public class Game {
 
     public void resetGame() {
         initializeGrid();
-        currentPlayer = player1.getSymbol();
+        currentPlayerSymbol = player1.getSymbol();
+        currentPlayerName = player1.getName();
         gameOver = false;
     }
+
 }

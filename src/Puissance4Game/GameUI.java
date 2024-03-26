@@ -31,7 +31,7 @@ public class GameUI extends JFrame {
             }
         }
 
-        currentPlayerLabel = new JLabel("Tour du joueur : " + game.getCurrentPlayerSymbol());
+        currentPlayerLabel = new JLabel("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
         panel.add(currentPlayerLabel);
 
         JButton restartButton = new JButton("Recommencer");
@@ -56,21 +56,19 @@ public class GameUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (game.dropToken(col)) {
+            if (!game.isGameOver() && !game.isColumnFull(col)) {
                 int lastRow = game.getLastRow(col);
-                if (game.checkForWin(lastRow, col)) {
-                    JOptionPane.showMessageDialog(null, "Le joueur " + game.getCurrentPlayerSymbol() + " a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }else{
-                gridButtons[lastRow+1][col].setText(Character.toString(game.getCurrentPlayerSymbol()));
-                gridButtons[lastRow+1][col].setBackground((game.getCurrentPlayerSymbol() == 'X') ? Color.RED : Color.YELLOW);
-                game.switchPlayer();
-                currentPlayerLabel.setText("Tour du joueur : " + game.getCurrentPlayerSymbol());}
+                game.dropToken(col);
+                gridButtons[lastRow][col].setText(Character.toString(game.getCurrentPlayerSymbol()));
+                gridButtons[lastRow][col].setBackground((game.getCurrentPlayerSymbol() == 'X') ? Color.RED : Color.YELLOW);
 
-                if (game.isGameOver()) {
-                    JOptionPane.showMessageDialog(null, "Le joueur " + game.getCurrentPlayerSymbol() + " a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+                if (game.checkForWin(lastRow, col)) {
+                    game.endGame();
                 } else if (game.isGridFull()) {
-                    JOptionPane.showMessageDialog(null, "Match nul!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+                    game.endGameWithDraw();
+                } else {
+                    game.switchPlayer();
+                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() + " - Signe : " + game.getCurrentPlayerSymbol());
                 }
             }
         }

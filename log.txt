@@ -1,2 +1,4 @@
-Winner: Joueur 2, Loser: Joueur 1
-Winner: Joueur 1, Loser: IA
+Winner: ko, Loser: ii
+Winner: mrr, Loser: IA
+Winner: IA, Loser: mrr
+Winner: kk, Loser: 
