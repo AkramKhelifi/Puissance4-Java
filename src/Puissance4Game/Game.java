@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.util.Arrays;
 
 public class Game {
-    private Player player1;
-    private Player player2;
+    public Player player1;
+    public Player player2;
     private char[][] grid;
     private char currentPlayerSymbol;
     private String currentPlayerName;
@@ -40,7 +40,6 @@ public class Game {
     protected boolean checkForWin(int row, int col) {
         char currentPlayerSymbol = grid[row][col];
 
-        // Vérification horizontale
         int count = 1;
         int j = col - 1;
         while (j >= 0 && grid[row][j] == currentPlayerSymbol) {
@@ -56,7 +55,6 @@ public class Game {
             return true;
         }
 
-        // Vérification verticale
         count = 1;
         int i = row - 1;
         while (i >= 0 && grid[i][col] == currentPlayerSymbol) {
@@ -72,7 +70,6 @@ public class Game {
             return true;
         }
 
-        // Vérification diagonale 1 (bas-gauche à haut-droite)
         count = 1;
         i = row - 1;
         j = col - 1;
@@ -92,7 +89,6 @@ public class Game {
             return true;
         }
 
-        // Vérification diagonale 2 (bas-droite à haut-gauche)
         count = 1;
         i = row - 1;
         j = col + 1;
@@ -131,10 +127,8 @@ public class Game {
                 return i;
             }
         }
-        return -1; // Should not reach here, because isColumnFull check should be done before calling this method
+        return -1;
     }
-
-
 
     public boolean isColumnFull(int col) {
         return grid[0][col] != ' ';
@@ -162,12 +156,9 @@ public class Game {
         gameOver = true;
     }
 
-
-
     public String getCurrentPlayerName() {
         return currentPlayerName;
     }
-
     public char getCurrentPlayerSymbol() {
         return currentPlayerSymbol;
     }
@@ -181,11 +172,7 @@ public class Game {
     }
 
     public void makeAIMove() {
-        if (!gameOver && player2 instanceof AIPlayer) {
-            AIPlayer aiPlayer = (AIPlayer) player2;
-            int col = aiPlayer.chooseMove(grid);
-            dropToken(col);
-        }
+        //a faire
     }
 
     public void resetGame() {

@@ -2,3 +2,14 @@ Winner: ko, Loser: ii
 Winner: mrr, Loser: IA
 Winner: IA, Loser: mrr
 Winner: kk, Loser: 
+Winner: eeeeeeee, Loser: ee
+Winner: eeeeeeee, Loser: ee
+Winner: ee, Loser: eeeeeeee
+Winner: IA, Loser: z
+Winner: tttt, Loser: ffffffffffffffffffffffffff
+Winner: zef, Loser: IA
+Winner: IA, Loser: vrds
+Winner: sqq, Loser: IA
+Winner: IA, Loser: rf
+Winner: IA, Loser: "d
+Winner: "d, Loser: IA

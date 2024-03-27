@@ -68,7 +68,7 @@ public class GameUI extends JFrame {
                     game.endGameWithDraw();
                 } else {
                     game.switchPlayer();
-                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() + " - Signe : " + game.getCurrentPlayerSymbol());
+                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() + " - Signe : " + game.getCurrentPlayerSymbol());;
                 }
             }
         }
