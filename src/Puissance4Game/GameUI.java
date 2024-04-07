@@ -66,9 +66,26 @@ public class GameUI extends JFrame {
                     game.endGame();
                 } else if (game.isGridFull()) {
                     game.endGameWithDraw();
-                } else {
+                }
+                game.switchPlayer();
+
+                currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
+
+                if (game.player2.getName().equals("IA")){
+                    int col2 = AIPlayer.chooseMove(game.getGrid());
+                    int ailastrow = game.getLastRow(col2);
+                    game.dropToken(col2);
+                    gridButtons[ailastrow][col2].setText(Character.toString(game.getCurrentPlayerSymbol()));
+                    gridButtons[ailastrow][col2].setBackground((game.getCurrentPlayerSymbol() == 'X') ? Color.RED : Color.YELLOW);
+
+                    if (game.checkForWin(ailastrow, col2)) {
+                        game.endGame();
+                    } else if (game.isGridFull()) {
+                        game.endGameWithDraw();
+                    }
                     game.switchPlayer();
-                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() + " - Signe : " + game.getCurrentPlayerSymbol());;
+                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
+
                 }
             }
         }

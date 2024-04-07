@@ -11,13 +11,13 @@ public class AIPlayer extends Player {
 
     public static int chooseMove(char[][] grid) {
         int col;
+
         do {
             col = random.nextInt(grid[0].length);
-        } while (!AIPlayer.isValidMove(grid, col));
+        } while (grid[0][col] != ' ');
+
         return col;
     }
 
-    private static boolean isValidMove(char[][] grid, int col) {
-        return grid[0][col] == ' ';
-    }
+
 }

@@ -10,6 +10,7 @@ public class Game {
     private char currentPlayerSymbol;
     private String currentPlayerName;
     private boolean gameOver;
+    private int lastCol;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -115,6 +116,7 @@ public class Game {
         for (int i = 5; i >= 0; i--) {
             if (grid[i][col] == ' ') {
                 grid[i][col] = currentPlayerSymbol;
+                lastCol = col;
                 return true;
             }
         }
@@ -148,7 +150,6 @@ public class Game {
     protected void endGame() {
         JOptionPane.showMessageDialog(null, "Le joueur " + getCurrentPlayerName() + " (" + getCurrentPlayerSymbol() + ") a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
         HistoryLogger.logGameResult(getCurrentPlayerName(), getCurrentPlayerName().equals(player1.getName()) ? player2.getName() : player1.getName());
-        gameOver = true;
     }
 
     protected void endGameWithDraw() {
@@ -171,15 +172,15 @@ public class Game {
         return grid;
     }
 
-    public void makeAIMove() {
-        //a faire
-    }
-
     public void resetGame() {
         initializeGrid();
         currentPlayerSymbol = player1.getSymbol();
         currentPlayerName = player1.getName();
         gameOver = false;
+    }
+
+    public int getLastCol() {
+        return lastCol;  // où lastCol est une variable de classe que vous définissez dans la méthode dropToken
     }
 
 }
