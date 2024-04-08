@@ -12,7 +12,6 @@ public class GameUI extends JFrame {
 
     public GameUI(Game game) {
         this.game = game;
-
         setTitle("Puissance 4 - Jeu en cours");
         setSize(700, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +30,7 @@ public class GameUI extends JFrame {
             }
         }
 
-        currentPlayerLabel = new JLabel("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
+        currentPlayerLabel = new JLabel("Joueur en jeu " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
         panel.add(currentPlayerLabel);
 
         JButton restartButton = new JButton("Recommencer");
@@ -69,7 +68,7 @@ public class GameUI extends JFrame {
                 }
                 game.switchPlayer();
 
-                currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
+                currentPlayerLabel.setText("Joueur en jeu " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
 
                 if (game.player2.getName().equals("IA")){
                     int col2 = AIPlayer.chooseMove(game.getGrid());
@@ -84,14 +83,14 @@ public class GameUI extends JFrame {
                         game.endGameWithDraw();
                     }
                     game.switchPlayer();
-                    currentPlayerLabel.setText("C'est le tour de " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
+                    currentPlayerLabel.setText("Joueur en jeu " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
 
                 }
             }
         }
     }
 
-    private void resetGame() {
+    protected void resetGame() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 gridButtons[i][j].setText("");
@@ -99,8 +98,12 @@ public class GameUI extends JFrame {
             }
         }
         game.resetGame();
-        currentPlayerLabel.setText("Tour du joueur : " + game.getCurrentPlayerSymbol());
-    }
 
+        if(!game.player2.getName().equals("IA")){
+        game.switchStartPlayer();
+        }
+
+        currentPlayerLabel.setText("joueur en jeu: " + game.getCurrentPlayerName() + " Signe :" + game.getCurrentPlayerSymbol());
+    }
 
 }

@@ -16,7 +16,7 @@ public class Puissance4UI extends JFrame {
         setTitle("Puissance 4");
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(5, 2));
+        setLayout(new GridLayout(4, 2));
 
         player1Label = new JLabel("Joueur 1 (X): ");
         player1NameField = new JTextField();
@@ -25,6 +25,7 @@ public class Puissance4UI extends JFrame {
         aiPlayerButton = new JButton("IA");
         startButton = new JButton("Commencer la partie");
 
+
         add(player1Label);
         add(player1NameField);
         add(player2Label);
@@ -32,8 +33,6 @@ public class Puissance4UI extends JFrame {
         add(new JLabel());
         add(new JLabel());
         add(aiPlayerButton);
-        add(new JLabel());
-        add(new JLabel());
         add(startButton);
 
         aiPlayerButton.addActionListener(new ActionListener() {

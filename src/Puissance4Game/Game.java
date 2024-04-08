@@ -11,10 +11,12 @@ public class Game {
     private String currentPlayerName;
     private boolean gameOver;
     private int lastCol;
+    private Player startPlayer;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
+        this.startPlayer = player1;
         this.currentPlayerName = player1.getName();
         this.currentPlayerSymbol = player1.getSymbol();
         this.grid = new char[6][7];
@@ -25,6 +27,18 @@ public class Game {
     private void initializeGrid() {
         for (int i = 0; i < 6; i++) {
             Arrays.fill(grid[i], ' ');
+        }
+    }
+
+    protected void switchStartPlayer(){
+        if (startPlayer == player1) {
+            startPlayer = player2;
+            currentPlayerSymbol = player2.getSymbol();
+            currentPlayerName = player2.getName();
+        } else {
+            startPlayer = player1;
+            currentPlayerName = player1.getName();
+            currentPlayerSymbol = player1.getSymbol();
         }
     }
 
@@ -150,6 +164,7 @@ public class Game {
     protected void endGame() {
         JOptionPane.showMessageDialog(null, "Le joueur " + getCurrentPlayerName() + " (" + getCurrentPlayerSymbol() + ") a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
         HistoryLogger.logGameResult(getCurrentPlayerName(), getCurrentPlayerName().equals(player1.getName()) ? player2.getName() : player1.getName());
+        gameOver = true;
     }
 
     protected void endGameWithDraw() {
@@ -174,13 +189,8 @@ public class Game {
 
     public void resetGame() {
         initializeGrid();
-        currentPlayerSymbol = player1.getSymbol();
-        currentPlayerName = player1.getName();
         gameOver = false;
     }
 
-    public int getLastCol() {
-        return lastCol;  // où lastCol est une variable de classe que vous définissez dans la méthode dropToken
-    }
 
 }
