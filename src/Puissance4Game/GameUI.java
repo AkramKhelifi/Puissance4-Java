@@ -9,6 +9,8 @@ public class GameUI extends JFrame {
     private JButton[][] gridButtons;
     private JLabel currentPlayerLabel;
     private Game game;
+    private JLabel scoreJ1Label;
+    private JLabel scoreJ2Label;
 
     public GameUI(Game game) {
         this.game = game;
@@ -32,6 +34,12 @@ public class GameUI extends JFrame {
 
         currentPlayerLabel = new JLabel("Joueur en jeu " + game.getCurrentPlayerName() +" Signe : " + game.getCurrentPlayerSymbol());
         panel.add(currentPlayerLabel);
+
+        scoreJ1Label = new JLabel("Score de " + game.player1.getName() +" Signe : " + game.player1.getSymbol()+ " : " + game.getScoreJ1());
+        panel.add(scoreJ1Label);
+
+        scoreJ2Label = new JLabel("Score de " + game.player2.getName() +" Signe : " + game.player2.getSymbol()+ " : " + game.getScoreJ2());
+        panel.add(scoreJ2Label);
 
         JButton restartButton = new JButton("Recommencer");
         restartButton.addActionListener(new ActionListener() {
@@ -87,7 +95,13 @@ public class GameUI extends JFrame {
 
                 }
             }
+            updateScores();
         }
+    }
+
+    public void updateScores() {
+        scoreJ1Label.setText("Score de " + game.player1.getName() +" Signe : " + game.player1.getSymbol()+ " : " + game.getScoreJ1());
+        scoreJ2Label.setText("Score de " + game.player2.getName() +" Signe : " + game.player2.getSymbol()+ " : " + game.getScoreJ2());
     }
 
     protected void resetGame() {
@@ -103,7 +117,8 @@ public class GameUI extends JFrame {
         game.switchStartPlayer();
         }
 
-        currentPlayerLabel.setText("joueur en jeu: " + game.getCurrentPlayerName() + " Signe :" + game.getCurrentPlayerSymbol());
+        currentPlayerLabel.setText("Joueur en jeu : " + game.getCurrentPlayerName() + " Signe : " + game.getCurrentPlayerSymbol());
+        updateScores();
     }
 
 }

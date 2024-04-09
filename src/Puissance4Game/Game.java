@@ -11,6 +11,8 @@ public class Game {
     private String currentPlayerName;
     private boolean gameOver;
     private int lastCol;
+    private int scoreJ1 = 0;
+    private int scoreJ2 = 0;
     private Player startPlayer;
 
     public Game(Player player1, Player player2) {
@@ -165,6 +167,22 @@ public class Game {
         JOptionPane.showMessageDialog(null, "Le joueur " + getCurrentPlayerName() + " (" + getCurrentPlayerSymbol() + ") a gagné!", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
         HistoryLogger.logGameResult(getCurrentPlayerName(), getCurrentPlayerName().equals(player1.getName()) ? player2.getName() : player1.getName());
         gameOver = true;
+
+        if (getCurrentPlayerName().equals(player1.getName())) {
+            scoreJ1++;
+        } else {
+            scoreJ2++;
+        }
+
+        HistoryLogger.logScores(scoreJ1, scoreJ2, player1.getName(), player2.getName());
+    }
+
+    public int getScoreJ1() {
+        return scoreJ1;
+    }
+
+    public int getScoreJ2() {
+        return scoreJ2;
     }
 
     protected void endGameWithDraw() {

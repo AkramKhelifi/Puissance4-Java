@@ -12,4 +12,12 @@ public class HistoryLogger {
             e.printStackTrace();
         }
     }
+
+    public static void logScores(int scoreJ1, int scoreJ2, String player1Name, String player2Name) {
+        try (FileWriter writer = new FileWriter("log.txt", true)) {
+            writer.write(player1Name + " Score: " + scoreJ1 + ", " + player2Name + " Score: " + scoreJ2 + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

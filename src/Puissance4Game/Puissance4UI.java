@@ -25,7 +25,6 @@ public class Puissance4UI extends JFrame {
         aiPlayerButton = new JButton("IA");
         startButton = new JButton("Commencer la partie");
 
-
         add(player1Label);
         add(player1NameField);
         add(player2Label);
