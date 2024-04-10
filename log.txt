@@ -1,0 +1,12 @@
+Winner: Akram, Loser: Marouane
+Akram Score: 1, Marouane Score: 0
+Winner: Marouane, Loser: Akram
+Akram Score: 0, Marouane Score: 1
+Winner: ug, Loser: yug
+ug Score: 1, yug Score: 0
+Winner: rf, Loser: erf
+erf Score: 0, rf Score: 1
+Winner: rf, Loser: aaa
+rf Score: 1, aaa Score: 0
+Winner: dcss, Loser: dce
+dcss Score: 1, dce Score: 0

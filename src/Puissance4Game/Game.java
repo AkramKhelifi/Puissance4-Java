@@ -175,6 +175,9 @@ public class Game {
         }
 
         HistoryLogger.logScores(scoreJ1, scoreJ2, player1.getName(), player2.getName());
+        DatabaseManager dbManager = new DatabaseManager();
+        dbManager.updateOrInsertPlayerScore(getCurrentPlayerName(), 1);
+        dbManager.closeConnection();
     }
 
     public int getScoreJ1() {
