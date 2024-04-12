@@ -10,3 +10,19 @@ Winner: rf, Loser: aaa
 rf Score: 1, aaa Score: 0
 Winner: dcss, Loser: dce
 dcss Score: 1, dce Score: 0
+Winner: ed, Loser: edz
+ed Score: 1, edz Score: 0
+Winner: dd, Loser: yy
+dd Score: 1, yy Score: 0
+Winner: dc, Loser: aaa
+dc Score: 1, aaa Score: 0
+Winner: de, Loser: aa
+de Score: 1, aa Score: 0
+Winner: nn, Loser: nnnn
+nn Score: 1, nnnn Score: 0
+Winner: dcrrr, Loser: 'r
+dcrrr Score: 1, 'r Score: 0
+Winner: vf, Loser: za
+vf Score: 1, za Score: 0
+Winner: fc, Loser: d
+fc Score: 1, d Score: 0

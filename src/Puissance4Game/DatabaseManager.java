@@ -15,10 +15,8 @@ public class DatabaseManager {
 
     private void connect() {
         try {
-            // Charge le pilote JDBC de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // Remplacez par votre URL de connexion, nom d'utilisateur et mot de passe
-            String url = "jdbc:mysql://localhost:3306/puissance4db?serverTimezone=UTC"; // Ajout du paramètre serverTimezone pour éviter les problèmes de timezone
+            String url = "jdbc:mysql://localhost:3306/puissance4db";
             String user = "root";
             String password = "";
             connection = DriverManager.getConnection(url, user, password);
@@ -33,14 +31,12 @@ public class DatabaseManager {
 
     public void updateOrInsertPlayerScore(String playerName, int score) {
         try {
-            // Vérifie si le joueur existe
             String queryCheck = "SELECT score FROM scores WHERE player_name = ?";
             PreparedStatement psCheck = connection.prepareStatement(queryCheck);
             psCheck.setString(1, playerName);
             ResultSet resultSet = psCheck.executeQuery();
 
             if (resultSet.next()) {
-                // Mise à jour du score si le joueur existe
                 int existingScore = resultSet.getInt("score");
                 String queryUpdate = "UPDATE scores SET score = ? WHERE player_name = ?";
                 PreparedStatement psUpdate = connection.prepareStatement(queryUpdate);
@@ -48,7 +44,6 @@ public class DatabaseManager {
                 psUpdate.setString(2, playerName);
                 psUpdate.executeUpdate();
             } else {
-                // Insertion d'un nouveau joueur et son score
                 String queryInsert = "INSERT INTO scores (player_name, score) VALUES (?, ?)";
                 PreparedStatement psInsert = connection.prepareStatement(queryInsert);
                 psInsert.setString(1, playerName);
@@ -60,7 +55,6 @@ public class DatabaseManager {
         }
     }
 
-    // Fermez la connexion à la base de données lorsque vous n'en avez plus besoin
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
